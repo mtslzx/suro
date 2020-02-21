@@ -59,7 +59,7 @@ for def_image in range(loop + 1):
     close_clip(video_item)
     #print("b")
     #print(clips)
-    print(def_image + "번째 영상 처리중.")
+    print(str(def_image) + "번째 영상 처리중.")
 
 print("[알림] 영상불러오기 성공")
 final_render = concatenate_videoclips(clips)
