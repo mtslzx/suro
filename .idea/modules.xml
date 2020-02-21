@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../TwitchDownloader/.idea/TwitchDownloader.iml" filepath="$PROJECT_DIR$/../TwitchDownloader/.idea/TwitchDownloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/suro.iml" filepath="$PROJECT_DIR$/.idea/suro.iml" />
     </modules>
   </component>
