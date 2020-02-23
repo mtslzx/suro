@@ -24,3 +24,38 @@ GUI 추가예정.
             + 정말 내가 해결할 수 없다면 이 방법밖에는 답이 없다.
             + 프로그래밍적으로는 쉽겠지만, 절차가 늘어나게 될 것이다.
             + 최종목표인 자동화에도 문제가 생길것이다. 
+            
+---
+출처 : https://superuser.com/questions/692990/use-ffmpeg-copy-codec-to-combine-ts-files-into-a-single-mp4
+
+Using copy or cat to combine the files like szatmary's current top answer might leave you with a file that plays far past the limit and can't seek along with playback issues.
+
+Instead, to combine these files properly use ffmpeg as instructed in https://trac.ffmpeg.org/wiki/Concatenate. (Install ffmpeg here if you don't already have it https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg.)
+
+If you're too lazy to read my first link, you basically have to create a .txt file listing all the files you want to combine like so (which my first link gives instructions on how to do easily) in the folder where you're doing the concatenation:
+
+`file '/path/to/file1'
+file '/path/to/file2'
+file '/path/to/file3'`
+
+Here's a copy paste from my first link on one way to create a text file if you have Windows on commandline for instance but obviously you can make the file manually or however you want:
+
+`(for %i in (*.ts) do @echo file '%i') > mylist.txt`
+
+Double check that your .txt file looks good and is formatted correctly!
+
+After this, on commandline run:
+
+`
+ffmpeg -f concat -i mylist.txt -c copy all.ts
+where 'mylist.txt' is the .txt file you just made.
+`
+
+Check if the resultant file plays video correctly. From here, you can transmux to mp4 as usual if you like:
+
+`
+ffmpeg -i all.ts -acodec copy -vcodec copy all.mp4
+`
+
++ 해결방법을 찾은 것 같다. 
++ Moviepy 라이브러리는 너무 무겁고 RAM을 존나게 쳐먹기 때문에 cmd에서 FFMPEG를 직접 불러와서 명령어를 입력하는게 훨씬 빠르고 자원도 적게든다.
