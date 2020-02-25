@@ -20,7 +20,7 @@ output = os.popen('dir').read()
 print(output)
 
 # FFMPEG / .ts 파일 합치기
-os.system("ffmpeg -f concat -i download_list.txt -c copy %s.ts" % mv_name)
+os.system(R'bin\ffmpeg -f concat -i download_list.txt -c copy %s.ts' % mv_name)  # \f 가 이스케이프로 치환되는것을 막기위해 R 을 붙여 Raw 표현
 
 # FFMPEG / .ts To .mp4
-os.system("ffmpeg -i %s.ts -acodec copy -vcodec copy %s.mp4" % (mv_name, mv_name))
+os.system(R'bin\ffmpeg -i %s.ts -acodec copy -vcodec copy %s.mp4' % (mv_name, mv_name))  # ffmpeg를 따로 설치하지않고 binary 불러오기
