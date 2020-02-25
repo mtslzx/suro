@@ -9,7 +9,7 @@ https://stackoverflow.com/questions/42901942/how-do-we-download-a-blob-url-video
 https://m.blog.naver.com/shino1025/221279112390
 
 - 사용된 라이브러리 -
-time , random , requests , moviepy
+time , random , requests , moviepy, os
 
 
 = 트위치 구독자 전용 VOD 다운로더 b0.1 =
@@ -39,6 +39,10 @@ Twitch Downloader 프로젝트 합병
 [1.1.1]
 ·moviepy 기능 테스트
 
+[1.2]
++ FFMPEG 4.2.2 탑재
++ FFMPEG로 영상파일 연결기능
+
 
 '''
 
@@ -46,6 +50,7 @@ from requests import get
 from urllib import request
 import random as r
 import time as t
+import os
 
 
 # 링크에서 파일이름 구분해서 다운로드
@@ -103,6 +108,7 @@ def count(url, loop):
 if __name__ == '__main__':
     url = input("VOD 주소를 입력하세요:")
     loop = int(input("반복할 범위를 입력하세요(0 - n):"))
+    mv_name = str(input("영상 제목을 입력해주세요:"))
     # check(url)
     for i in range(loop + 1):
         c_url = count(url, i)
@@ -110,4 +116,12 @@ if __name__ == '__main__':
         wait = r.uniform(0.005, 5)
         print(wait, "만큼 잠듭니다.....")
         t.sleep(wait)
-    # non_download(url,'1.png')
+    # 영상 모듈
+    dl_list = open('download_list.txt', 'w')  # 영상 리스트 텍스트 파일 생성
+    for i in range(loop + 1):
+        dl_list.write("file '%s.ts'\n" % i)  # file '0.ts' 형식으로 저장
+    dl_list.close()  # 파일 저장 후 닫기
+    # FFMPEG / .ts 파일 합치기
+    os.system(R'bin\ffmpeg -f concat -i download_list.txt -c copy %s.ts' % mv_name)  # \f 가 이스케이프로 치환되는것을 막기위해 R 을 붙여 Raw 표현
+    # FFMPEG / .ts To .mp4
+    os.system(R'bin\ffmpeg -i %s.ts -acodec copy -vcodec copy %s.mp4' % (mv_name, mv_name))  # ffmpeg를 따로 설치하지않고 binary 불러오기

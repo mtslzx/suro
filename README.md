@@ -2,7 +2,7 @@
 ### 트위치 구독자 전용 VOD 다운로더 "수로"
 
 ## 사용된 라이브러리
-time , random , requests, moviepy
+time , random , requests, os
 
 ## 어떻게 사용하나요?
 추가예정.
@@ -32,6 +32,10 @@ time , random , requests, moviepy
 [1.1]
 Twitch Downloader 프로젝트 합병
 + ###### moviepy 기능 테스트
+
+[1.2]
++ ###### FFMPEG 4.2.2 탑재
++ ###### FFMPEG로 영상파일 연결기능
 
 ## 도움을 받은 곳
 1.	https://code.i-harness.com/ko/q/6e87e6
