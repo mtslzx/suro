@@ -14,6 +14,9 @@ GUI 추가예정.
     + 다운로드 폴더 지정
     + 임시 폴더 지정
     + 렌더 파일 지정
++ 영상 제목 추가기능
+    + 직접 추가 및 픽시브롤러처럼 이름의 순서까지(날짜, 이름, 활동내용 등)
+    + 웹 크롤링 후 제목 찾아내기...
 
 ---
 
@@ -53,8 +56,10 @@ After this, on commandline run:
 
 `
 ffmpeg -f concat -i mylist.txt -c copy all.ts
-where 'mylist.txt' is the .txt file you just made.
 `
+
+where 'mylist.txt' is the .txt file you just made.
+
 
 Check if the resultant file plays video correctly. From here, you can transmux to mp4 as usual if you like:
 
