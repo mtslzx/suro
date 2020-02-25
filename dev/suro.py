@@ -46,7 +46,7 @@ def download(url: object, file_name: object = None) -> object:
     if not file_name:
         file_name = url.split('/')[-1]
 
-    with open(file_name, "wb") as file:
+    with open('temp\\' + file_name, "wb") as file: #temp 폴더에 저장
         response = get(url)
         file.write(response.content)
 
@@ -106,3 +106,4 @@ if __name__ == '__main__':
     # non_download(url,'1.png')
 
 
+print(r'hi\f')
