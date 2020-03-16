@@ -9,7 +9,7 @@ https://stackoverflow.com/questions/42901942/how-do-we-download-a-blob-url-video
 https://m.blog.naver.com/shino1025/221279112390
 
 - 사용된 라이브러리 -
-time , random , requests , moviepy, os
+time , random , requests , os
 
 
 = 트위치 구독자 전용 VOD 다운로더 b0.1 =
@@ -42,6 +42,7 @@ Twitch Downloader 프로젝트 합병
 [1.2]
 + FFMPEG 4.2.2 탑재
 + FFMPEG로 영상파일 연결기능
+- moviepy 제거
 
 
 '''
@@ -78,20 +79,18 @@ def check(url):
 
 # 시작 옵션
 def ready():
-    print('''트위치 구독자 전용 VOD 다운로더 beta 0.1
+    print('''[ 수로 v1.3 ]
     (중요) Requests 라이브러리의 설치가 필요합니다.
     
-    (알림) https://vod-secure.twitch.tv/00acc6386121b4a37af5_mister903_36414312512_1344611539/chunked/1500.ts
+    (알림)  예시 https://vod-secure.twitch.tv/00acc6386121b4a37af5_mister903_36414312512_1344611539/chunked/1500.ts
     에서 1500.ts 를 제외한 다음 링크를 입력해주세요. 
     
     (알림) 아직까지 완벽하지 않습니다. 이후 추가 예정인 기능입니다.
-     영상의 최종길이를 트위치에서 확인 후 개당 10초로 계산기로 나누어 범위를 정해주세요.
-     
-    (알림) 이후 개선 예정
-    파일의 병합이 이루어지지 않습니다. 전부 개별파일로 나누어 저장될 것입니다.
+     영상의 최종길이를 트위치에서 확인하여 반복구간으로 입력해주세요.
     
     (알림) 이후 개선 예정
-    파일의 저장경로 지정이 불가능합니다. 현재 폴더에 저장됩니다.
+     파일의 저장경로 지정이 불가능합니다. 현재 폴더에 저장됩니다.
+     파일 렌더 후 다운로드 받은 파일을 직접 제거해야 합니다.
     
     ''')
 
@@ -106,9 +105,11 @@ def count(url, loop):
 
 # 메인 함수
 if __name__ == '__main__':
-    url = input("VOD 주소를 입력하세요:")
-    loop = int(input("반복할 범위를 입력하세요(0 - n):"))
-    mv_name = str(input("영상 제목을 입력해주세요:"))
+    ready()
+    url = input("VOD 주소를 입력하세요:")  # F12에서 확인된 링크 에서 ???.ts 제거하고 입력
+    loop = int(input("반복할 범위를 입력하세요(0 - n):"))  # F12에서 확인된 ???.ts 의 끝번호 입력
+    mv_name = str(input("영상 제목을 입력해주세요:"))  # 저장할 영상 파일 제목 지정
+    mv_name = mv_name.replace(' ', '_')  # 영상 제목의 공백을 _ 으로 변환
     # check(url)
     for i in range(loop + 1):
         c_url = count(url, i)
