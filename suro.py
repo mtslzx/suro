@@ -47,6 +47,8 @@ Twitch Downloader 프로젝트 합병
 [1.3]
 + 영상 파일 이름에 공백이 들어가면 작동이 멈추는 버그 임시 해결
 
+[1.4]
++ 처리과정 변경
 
 '''
 
@@ -100,25 +102,32 @@ def ready():
 
 # 파일 주소 카운트 업
 def count(url, loop):
-    print("현재 반복 구간은:", loop, "입니다.")
+    print("[알림] 현재 반복 구간은:", loop, "입니다.")
     c_url = url + str(loop) + '.ts'
-    print("경로는: ", c_url, "입니다.")
+    print("[알림] 경로는: ", c_url, "입니다.")
     return c_url
 
 
 # 메인 함수
 if __name__ == '__main__':
     ready()
-    url = input("VOD 주소를 입력하세요:")  # F12에서 확인된 링크 에서 ???.ts 제거하고 입력
-    loop = int(input("반복할 범위를 입력하세요(0 - n):"))  # F12에서 확인된 ???.ts 의 끝번호 입력
+    date = str(input("VOD 날짜를 입력해주세요(********):"))  # 영상 날짜 입력 (8자리) 이후 영상제목에 추가
     mv_name = str(input("영상 제목을 입력해주세요:"))  # 저장할 영상 파일 제목 지정
     mv_name = mv_name.replace(' ', '_')  # 영상 제목의 공백을 _ 으로 변환
+    mv_name = date + "-" + mv_name  # 영상제목에 날짜 추가
+    url = input("VOD 주소를 입력하세요:")  # F12에서 확인된 링크 에서 ???.ts 제거하고 입력
+    loop = int(input("반복할 범위를 입력하세요(0 - n):"))  # F12에서 확인된 ???.ts 의 끝번호 입력
+    print("\n영상 제목: " + mv_name)
+    print("\n영상 주소: " + url)
+    print("\n영상 길이: " + str(loop))
+    print("\n[알림] 3초 이내로 작동합니다.")
+    t.sleep(3)
     # check(url)
     for i in range(loop + 1):
         c_url = count(url, i)
         download(c_url)
         wait = r.uniform(0.005, 5)
-        print(wait, "만큼 잠듭니다.....")
+        print("[알림]", wait, "만큼 잠듭니다.....")
         t.sleep(wait)
     # 영상 모듈
     dl_list = open('download_list.txt', 'w')  # 영상 리스트 텍스트 파일 생성
